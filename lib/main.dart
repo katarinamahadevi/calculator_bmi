@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'calculate_page.dart';
 
@@ -19,19 +21,19 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan 
   double height = 100;
   int weight = 30;
   int age = 15;
   bool isMaleSelected = true;
   bool isFemaleSelected = true;
 
-  double calculatebmi() {
+  double calculatebmi() { //fungsi perhitungan bmi
     double heightInMeters = height / 100;
     return weight / (heightInMeters * heightInMeters);
   }
 
-  @override
+  @override //Menu pojok kiri & Apper
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E21),
@@ -58,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30),
           Row(
@@ -106,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          // const SizedBox(height: 50),
+          Spacer(),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -119,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 49),
+              padding: const EdgeInsets.symmetric(vertical: 30),
               color: const Color(0xFFE91E63),
               child: const Center(
                 child: Text(
@@ -154,7 +158,7 @@ class GenderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      width: 150,
+      width: 170,
       height: 150,
       decoration: BoxDecoration(
         color: selected ? Colors.blueAccent : Colors.white10,
@@ -187,7 +191,7 @@ class HeightSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      width: 350,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(color: Colors.white10),
       child: Column(
@@ -231,7 +235,7 @@ class HeightSlider extends StatelessWidget {
   }
 }
 
-class WeightAgeCard extends StatelessWidget {
+class WeightAgeCard extends StatefulWidget {
   final String label;
   final int value;
   final VoidCallback onIncrement;
@@ -245,56 +249,80 @@ class WeightAgeCard extends StatelessWidget {
   });
 
   @override
+  State<WeightAgeCard> createState() => _WeightAgeCardState();
+}
+
+class _WeightAgeCardState extends State<WeightAgeCard> {
+  Timer? _timer;
+
+  void _startTimer(bool isIncrement) {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      if (isIncrement) {
+        widget.onIncrement();
+      } else {
+        widget.onDecrement();
+      }
+    });
+  }
+
+  void _stopTimer() {
+    _timer?.cancel();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 170,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1E33), // Warna sesuai tema
+        color: const Color(0xFF1D1E33),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         children: [
           Text(
-            label,
+            widget.label,
             style: const TextStyle(color: Colors.grey, fontSize: 16),
           ),
           const SizedBox(height: 20),
           Text(
-            "$value",
+            "${widget.value}",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 40,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 20), //mengatur dari angka weight age ke button add minus
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Tombol "-" dengan latar belakang lingkaran
-              
-              Expanded(
-                child: ElevatedButton(
-                  
-                  onPressed: onDecrement,
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(10),
-                    backgroundColor: const Color(0xFF111328), // Warna latar tombol
+              GestureDetector(
+                onTap: widget.onDecrement,
+                onLongPress: () => _startTimer(false),
+                onLongPressUp: _stopTimer,
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF111328),
                   ),
                   child: const Icon(Icons.remove, color: Colors.white, size: 30),
                 ),
               ),
-              const SizedBox(width: 5), //mengatur jarak antara icon remove sm add
-              // Tombol "+" dengan latar belakang lingkaran
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: onIncrement,
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(10),
-                    backgroundColor: const Color(0xFF111328), // Warna latar tombol
+              const SizedBox(width: 15),
+              GestureDetector(
+                onTap: widget.onIncrement,
+                onLongPress: () => _startTimer(true),
+                onLongPressUp: _stopTimer,
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF111328),
                   ),
                   child: const Icon(Icons.add, color: Colors.white, size: 30),
                 ),
