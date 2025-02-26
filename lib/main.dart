@@ -236,7 +236,7 @@ class HeightSlider extends StatelessWidget {
   }
 }
 
-class WeightAgeCard extends StatefulWidget {
+class WeightAgeCard extends StatefulWidget { //fungsi w
   final String label;
   final int value;
   final VoidCallback onIncrement;
@@ -253,7 +253,7 @@ class WeightAgeCard extends StatefulWidget {
   State<WeightAgeCard> createState() => _WeightAgeCardState();
 }
 
-class _WeightAgeCardState extends State<WeightAgeCard> {
+class _WeightAgeCardState extends State<WeightAgeCard> { //menambahkan longpress button
   Timer? _timer;
 
   void _startTimer(bool isIncrement) {
@@ -261,7 +261,7 @@ class _WeightAgeCardState extends State<WeightAgeCard> {
       if (isIncrement) {
         widget.onIncrement();
       } else {
-        widget.onDecrement();
+        if (widget.value > 0) widget.onDecrement(); //menambahkan agar hanya sampai 0
       }
     });
   }
