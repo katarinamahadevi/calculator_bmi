@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan
           icon: const Icon(
             Icons.sort,
             color: Colors.white,
+            size: 30,
           ), // Tambahkan icon menu
           onPressed: () {
             // Logika Menu
@@ -268,8 +269,7 @@ class _WeightAgeCardState extends State<WeightAgeCard> {
   void _stopTimer() {
     _timer?.cancel();
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(

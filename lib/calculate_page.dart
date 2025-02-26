@@ -28,7 +28,7 @@ Widget build(BuildContext context) {
       backgroundColor: const Color(0xFF0A0E21),
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.sort, color: Colors.white),
+        icon: const Icon(Icons.sort, color: Colors.white, size: 30,),
         onPressed: () {},
       ),
       title: const Text(
