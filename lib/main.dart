@@ -21,19 +21,19 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan 
+class _HomeScreenState extends State<HomeScreen> {
   double height = 100;
   int weight = 30;
   int age = 15;
   bool isMaleSelected = true;
   bool isFemaleSelected = true;
 
-  double calculatebmi() { //fungsi perhitungan bmi
+  double calculatebmi() {
     double heightInMeters = height / 100;
     return weight / (heightInMeters * heightInMeters);
   }
 
-  @override //Menu pojok kiri & Apper
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E21),
@@ -41,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan
         backgroundColor: const Color(0x0b0c20),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.sort,
-            color: Colors.white,
-            size: 30,
-          ), // Tambahkan icon menu
+          icon: const Icon(Icons.sort, color: Colors.white, size: 30),
           onPressed: () {
             // Logika Menu
           },
@@ -61,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan
         centerTitle: true,
       ),
       body: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30),
           Row(
@@ -110,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan
               ),
             ],
           ),
-          // const SizedBox(height: 50),
           Spacer(),
           GestureDetector(
             onTap: () {
@@ -120,7 +114,6 @@ class _HomeScreenState extends State<HomeScreen> { //variabel yang digunakan
                   builder: (context) => CalculatePage(bmi: calculatebmi()),
                 ),
               );
-              // Tambahkan logika perhitungan BMI di sini
             },
             child: Container(
               width: double.infinity,
@@ -236,7 +229,7 @@ class HeightSlider extends StatelessWidget {
   }
 }
 
-class WeightAgeCard extends StatefulWidget { //fungsi w
+class WeightAgeCard extends StatefulWidget {
   final String label;
   final int value;
   final VoidCallback onIncrement;
@@ -253,7 +246,7 @@ class WeightAgeCard extends StatefulWidget { //fungsi w
   State<WeightAgeCard> createState() => _WeightAgeCardState();
 }
 
-class _WeightAgeCardState extends State<WeightAgeCard> { //menambahkan longpress button
+class _WeightAgeCardState extends State<WeightAgeCard> {
   Timer? _timer;
 
   void _startTimer(bool isIncrement) {
@@ -261,7 +254,7 @@ class _WeightAgeCardState extends State<WeightAgeCard> { //menambahkan longpress
       if (isIncrement) {
         widget.onIncrement();
       } else {
-        if (widget.value > 0) widget.onDecrement(); //menambahkan agar hanya sampai 0
+        if (widget.value > 0) widget.onDecrement();
       }
     });
   }
@@ -269,7 +262,7 @@ class _WeightAgeCardState extends State<WeightAgeCard> { //menambahkan longpress
   void _stopTimer() {
     _timer?.cancel();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -309,7 +302,11 @@ class _WeightAgeCardState extends State<WeightAgeCard> { //menambahkan longpress
                     shape: BoxShape.circle,
                     color: Color(0xFF111328),
                   ),
-                  child: const Icon(Icons.remove, color: Colors.white, size: 30),
+                  child: const Icon(
+                    Icons.remove,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 ),
               ),
               const SizedBox(width: 15),

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class CalculatePage extends StatelessWidget {
   final double bmi;
   final double
-  containerSize; // Tambahkan variabel untuk mengatur ukuran container
+  containerSize; 
 
   const CalculatePage({
     super.key,
     required this.bmi,
     this.containerSize = 300,
-  }); // Default ukuran container
+  }); 
 
   String getBMIStatus() {
     if (bmi < 18.5) return "UNDERWEIGHT";
@@ -68,14 +68,13 @@ class CalculatePage extends StatelessWidget {
                 bottom: 40,
                 right: 40,
                 left: 40,
-              ), //mengatur ukuran container
+              ), 
               width: double.infinity,
               decoration: BoxDecoration(
                 color: const Color(0xFF1D1F33),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 30),
                   Text(
